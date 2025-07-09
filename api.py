@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
-import mlflow
 import pickle
 import torch
-import pandas as pd
 import numpy as np
 
 app = FastAPI()
@@ -13,9 +11,10 @@ app = FastAPI()
 class Features(BaseModel):
     features: List[float]  #['footfall', 'tempMode', 'AQ', 'USS', 'CS', 'VOC', 'RP', 'IP','Temperature']
 
-# file:///D:/project/machine_failuire/mlruns/601922764089210881/bf16499b420d4287a7961c49264e994f/artifacts/data/model.pth
+
 model_path = r"d:\project\machine_failuire\mlruns\601922764089210881\bf16499b420d4287a7961c49264e994f/artifacts/model.pth"
 model = torch.load(model_path,weights_only=False)
+
 with open("data/scaler.pkl","rb") as f :
     scaler = pickle.load(f)
 
